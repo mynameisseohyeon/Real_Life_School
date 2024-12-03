@@ -1,4 +1,3 @@
-// Main.js
 import React, { useState } from "react";
 import {
   View,
@@ -6,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Dimensions,
+  Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -20,23 +20,18 @@ import {
   NewsCard,
   NewsTitle,
 } from "../components/Style";
+import PagerView from "react-native-pager-view";
+import { StyleSheet } from "react-native";
+import Footer from "../components/Footer";
 
-// npm install react-native-snap-carousel
+// npm install react-native-pager-view
 
 export default function Main() {
-  const [activeSlide, setActiveSlide] = useState(0);
-
-  const renderCarouselItem = ({ item }) => (
-    <CarouselImageContainer>
-      <CarouselImage source={item.image} resizeMode="cover" />
-    </CarouselImageContainer>
-  );
-
   const menuItems = [
     { id: 1, title: "주택계약", icon: "home-outline" },
-    { id: 2, title: "세금", icon: "cash-outline" },
+    { id: 2, title: "금융", icon: "cash-outline" },
     { id: 3, title: "노동법", icon: "briefcase-outline" },
-    { id: 4, title: "금융관리", icon: "wallet-outline" },
+    { id: 4, title: "실수령액 계산기", icon: "wallet-outline" },
   ];
 
   const newsItems = [
@@ -46,31 +41,68 @@ export default function Main() {
   ];
 
   return (
-    <Container>
-      <Header>
-        <HeaderText>Real Life School</HeaderText>
-      </Header>
+    <>
+      <View style={{ height: 250, marginVertical: 10 }}>
+        <PagerView style={{ flex: 1 }} initialPage={0}>
+          <View style={styles.page} key="1">
+            <Text>First page</Text>
+            <Text>Swipe ➡️</Text>
+          </View>
+          <View style={styles.page} key="2">
+            <Text>Second page</Text>
+          </View>
+          <View style={styles.page} key="3">
+            <Text>Third page</Text>
+          </View>
+        </PagerView>
+      </View>
 
       <ScrollView style={{ width: "100%" }}>
-        <MenuGrid>
-          {menuItems.map((item) => (
-            <MenuItem key={item.id}>
-              <MenuIcon>
-                <Ionicons name={item.icon} size={24} color="#3D0F2F" />
-              </MenuIcon>
-              <MenuText>{item.title}</MenuText>
-            </MenuItem>
-          ))}
-        </MenuGrid>
+        <Container>
+          {/* <Header>
+            <HeaderText>Real Life School</HeaderText>
+          </Header> */}
 
-        <NewsSection>
-          {newsItems.map((item) => (
-            <NewsCard key={item.id}>
-              <NewsTitle>{item.title}</NewsTitle>
-            </NewsCard>
-          ))}
-        </NewsSection>
+          <MenuGrid>
+            {menuItems.map((item) => (
+              <MenuItem key={item.id}>
+                <MenuIcon>
+                  <Ionicons name={item.icon} size={24} color="#3D0F2F" />
+                </MenuIcon>
+                <MenuText>{item.title}</MenuText>
+              </MenuItem>
+            ))}
+          </MenuGrid>
+
+          <NewsSection>
+            {newsItems.map((item) => (
+              <NewsCard key={item.id}>
+                <NewsTitle>{item.title}</NewsTitle>
+              </NewsCard>
+            ))}
+          </NewsSection>
+        </Container>
+        <Footer />
       </ScrollView>
-    </Container>
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: 200,
+  },
+  page: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f9f9f9",
+    height: "100%",
+  },
+  webFallback: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: 200,
+    backgroundColor: "#f1f1f1",
+  },
+});
