@@ -7,6 +7,7 @@ import {
   Linking,
   TouchableOpacity,
 } from "react-native";
+import Images from "../assets/images/Housing";
 
 export default function Detail({ route }) {
   // 안전한 데이터 추출
@@ -53,7 +54,11 @@ export default function Detail({ route }) {
       {/* 이미지 */}
       {selectedItem.image ? (
         <Image
-          source={{ uri: selectedItem.image }}
+          source={
+            typeof selectedItem.image === "string"
+              ? { uri: selectedItem.image } // URL인 경우
+              : selectedItem.image // 로컬 파일인 경우
+          }
           style={{
             width: "100%",
             height: 200,
@@ -62,12 +67,7 @@ export default function Detail({ route }) {
           resizeMode="cover"
         />
       ) : (
-        <Text
-          style={{
-            color: "gray",
-            marginBottom: 10,
-          }}
-        >
+        <Text style={{ color: "gray", marginBottom: 10 }}>
           이미지를 사용할 수 없습니다.
         </Text>
       )}

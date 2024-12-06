@@ -20,7 +20,7 @@ import {
   NewsCard,
   NewsTitle,
 } from "../components/Style";
-// import PagerView from "react-native-pager-view";
+import PagerView from "react-native-pager-view";
 import { StyleSheet } from "react-native";
 import Footer from "../components/Footer";
 
@@ -74,7 +74,7 @@ export default function Main({ navigation }) {
 
   return (
     <>
-      {/* <View style={{ height: 250, marginVertical: 10 }}>
+      <View style={{ height: 250, marginVertical: 10 }}>
         <PagerView style={{ flex: 1 }} initialPage={0}>
           <View style={styles.page} key="1">
             <Text>First page</Text>
@@ -87,7 +87,7 @@ export default function Main({ navigation }) {
             <Text>Third page</Text>
           </View>
         </PagerView>
-      </View> */}
+      </View>
 
       <ScrollView style={{ width: "100%" }}>
         <Container>
