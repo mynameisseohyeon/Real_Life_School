@@ -20,7 +20,7 @@ import {
   NewsCard,
   NewsTitle,
 } from "../components/Style";
-import PagerView from "react-native-pager-view";
+// import PagerView from "react-native-pager-view";
 import { StyleSheet } from "react-native";
 import Footer from "../components/Footer";
 
@@ -29,8 +29,14 @@ import Footer from "../components/Footer";
 // npm install is-arrayish
 
 export default function Main({ navigation }) {
-  const handleDetailListPress = () => {
-    navigation.navigate("DetailList");
+  const handleHousingListPress = () => {
+    navigation.navigate("HousingList");
+  };
+  const handleFinanceListPress = () => {
+    navigation.navigate("FinanceList");
+  };
+  const handleLaborListPress = () => {
+    navigation.navigate("LaborList");
   };
 
   const menuItems = [
@@ -38,25 +44,25 @@ export default function Main({ navigation }) {
       id: 1,
       title: "주택계약",
       icon: "home-outline",
-      onPress: handleDetailListPress,
+      onPress: handleHousingListPress,
     },
     {
       id: 2,
       title: "금융",
       icon: "cash-outline",
-      onPress: handleDetailListPress,
+      onPress: handleFinanceListPress,
     },
     {
       id: 3,
       title: "노동법",
       icon: "briefcase-outline",
-      onPress: handleDetailListPress,
+      onPress: handleLaborListPress,
     },
     {
       id: 4,
       title: "실수령액 계산기",
       icon: "wallet-outline",
-      onPress: handleDetailListPress,
+      onPress: handleLaborListPress,
     },
   ];
 
@@ -68,7 +74,7 @@ export default function Main({ navigation }) {
 
   return (
     <>
-      <View style={{ height: 250, marginVertical: 10 }}>
+      {/* <View style={{ height: 250, marginVertical: 10 }}>
         <PagerView style={{ flex: 1 }} initialPage={0}>
           <View style={styles.page} key="1">
             <Text>First page</Text>
@@ -81,7 +87,7 @@ export default function Main({ navigation }) {
             <Text>Third page</Text>
           </View>
         </PagerView>
-      </View>
+      </View> */}
 
       <ScrollView style={{ width: "100%" }}>
         <Container>

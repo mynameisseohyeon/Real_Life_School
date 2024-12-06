@@ -1,8 +1,9 @@
 import React from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { DetailListView, NewsCard, NewsTitle } from "../components/Style";
+// import Images from "../assets/images";
 
-export default function DetailList({ navigation }) {
+export default function FinanceList({ navigation }) {
   const newsItems = [
     {
       id: 1,
@@ -42,14 +43,9 @@ export default function DetailList({ navigation }) {
     <ScrollView style={{ width: "100%" }}>
       <DetailListView>
         {newsItems.map((item) => (
-          <TouchableOpacity
-            key={item.id}
-            onPress={() => handleDetailListPress(item)}
-          >
-            <NewsCard>
-              <NewsTitle>{item.title}</NewsTitle>
-            </NewsCard>
-          </TouchableOpacity>
+          <NewsCard key={item.id} onPress={() => handleDetailListPress(item)}>
+            <NewsTitle>{item.title}</NewsTitle>
+          </NewsCard>
         ))}
       </DetailListView>
     </ScrollView>

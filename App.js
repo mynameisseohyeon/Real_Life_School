@@ -7,7 +7,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/elements";
 
 import Main from "./screen/Main";
-import DetailList from "./screen/DetailList";
+import HousingList from "./screen/HousingList";
+import FinanceList from "./screen/FinanceList";
+import LaborList from "./screen/LaborList";
 import Detail from "./screen/Detail";
 
 // npm install @react-navigation/native
@@ -25,8 +27,32 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="DetailList"
-          component={DetailList}
+          name="HousingList"
+          component={HousingList}
+          options={({ navigation }) => ({
+            headerLeft: () => (
+              <HeaderBackButton
+                onPress={() => navigation.goBack()}
+                tintColor="#888"
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="FinanceList"
+          component={FinanceList}
+          options={({ navigation }) => ({
+            headerLeft: () => (
+              <HeaderBackButton
+                onPress={() => navigation.goBack()}
+                tintColor="#888"
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="LaborList"
+          component={LaborList}
           options={({ navigation }) => ({
             headerLeft: () => (
               <HeaderBackButton

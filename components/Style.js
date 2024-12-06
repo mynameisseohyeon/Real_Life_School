@@ -134,18 +134,7 @@ export const TabIcon = styled.View`
   justify-content: center;
 `;
 
-export const CarouselImageContainer = styled.View`
-  width: ${width}px;
-  height: 200px;
-`;
-
-export const CarouselImage = styled.Image`
-  width: 100%;
-  height: 100%;
-`;
-
-// Detail Styles
-
+// Detail List Styles
 export const DetailListView = styled.View`
   padding: 15px;
   width: 100%;
