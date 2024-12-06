@@ -7,6 +7,7 @@ const { width } = Dimensions.get("window");
 // yarn add styled-components
 // yarn add @types/styled-components @types/styled-components-react-native
 
+// Main Styles
 export const Container = styled.SafeAreaView`
   flex: 1;
   background-color: ${({ theme }) => theme.background || "#F0F0F0"};
@@ -141,4 +142,11 @@ export const CarouselImageContainer = styled.View`
 export const CarouselImage = styled.Image`
   width: 100%;
   height: 100%;
+`;
+
+// Detail Styles
+
+export const DetailListView = styled.View`
+  padding: 15px;
+  width: 100%;
 `;

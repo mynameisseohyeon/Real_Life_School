@@ -25,13 +25,39 @@ import { StyleSheet } from "react-native";
 import Footer from "../components/Footer";
 
 // npm install react-native-pager-view
+// expo install react-native-screens react-native-safe-area-context
+// npm install is-arrayish
 
-export default function Main() {
+export default function Main({ navigation }) {
+  const handleDetailListPress = () => {
+    navigation.navigate("DetailList");
+  };
+
   const menuItems = [
-    { id: 1, title: "주택계약", icon: "home-outline" },
-    { id: 2, title: "금융", icon: "cash-outline" },
-    { id: 3, title: "노동법", icon: "briefcase-outline" },
-    { id: 4, title: "실수령액 계산기", icon: "wallet-outline" },
+    {
+      id: 1,
+      title: "주택계약",
+      icon: "home-outline",
+      onPress: handleDetailListPress,
+    },
+    {
+      id: 2,
+      title: "금융",
+      icon: "cash-outline",
+      onPress: handleDetailListPress,
+    },
+    {
+      id: 3,
+      title: "노동법",
+      icon: "briefcase-outline",
+      onPress: handleDetailListPress,
+    },
+    {
+      id: 4,
+      title: "실수령액 계산기",
+      icon: "wallet-outline",
+      onPress: handleDetailListPress,
+    },
   ];
 
   const newsItems = [
@@ -65,7 +91,7 @@ export default function Main() {
 
           <MenuGrid>
             {menuItems.map((item) => (
-              <MenuItem key={item.id}>
+              <MenuItem key={item.id} onPress={item.onPress}>
                 <MenuIcon>
                   <Ionicons name={item.icon} size={24} color="#3D0F2F" />
                 </MenuIcon>
