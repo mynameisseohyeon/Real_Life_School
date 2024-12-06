@@ -1,17 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
-  Dimensions,
-  Platform,
+  StyleSheet,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
   Container,
-  Header,
-  HeaderText,
   MenuGrid,
   MenuItem,
   MenuIcon,
@@ -21,17 +18,17 @@ import {
   NewsTitle,
 } from "../components/Style";
 import PagerView from "react-native-pager-view";
-import { StyleSheet } from "react-native";
 import Footer from "../components/Footer";
-
-// npm install react-native-pager-view
+import { useNavigation } from '@react-navigation/native'; // 네비게이션 훅 추가
 
 export default function Main() {
+  const navigation = useNavigation(); // 네비게이션 객체 생성
+
   const menuItems = [
     { id: 1, title: "주택계약", icon: "home-outline" },
     { id: 2, title: "금융", icon: "cash-outline" },
     { id: 3, title: "노동법", icon: "briefcase-outline" },
-    { id: 4, title: "실수령액 계산기", icon: "wallet-outline" },
+    { id: 4, title: "실수령액 계산기", icon: "wallet-outline", screen: "CalculatorScreen" }, // 화면 이름 추가
   ];
 
   const newsItems = [
@@ -59,17 +56,15 @@ export default function Main() {
 
       <ScrollView style={{ width: "100%" }}>
         <Container>
-          {/* <Header>
-            <HeaderText>Real Life School</HeaderText>
-          </Header> */}
-
           <MenuGrid>
             {menuItems.map((item) => (
               <MenuItem key={item.id}>
                 <MenuIcon>
                   <Ionicons name={item.icon} size={24} color="#3D0F2F" />
                 </MenuIcon>
-                <MenuText>{item.title}</MenuText>
+                <TouchableOpacity onPress={() => item.screen && navigation.navigate(item.screen)}>
+                  <MenuText>{item.title}</MenuText>
+                </TouchableOpacity>
               </MenuItem>
             ))}
           </MenuGrid>
@@ -98,11 +93,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#f9f9f9",
     height: "100%",
-  },
-  webFallback: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: 200,
-    backgroundColor: "#f1f1f1",
   },
 });
