@@ -10,6 +10,8 @@ import LaborList from "./screen/LaborList";
 import Detail from "./screen/Detail";
 import CalculatorScreen from "./screen/CalculatorScreen";
 import ResultScreen from "./screen/ResultScreen";
+import Simulation from "./screen/Simulation";
+import SimulationList from "./screen/SimulationList";
 
 // npm install @react-navigation/native
 // npm install @react-navigation/stack
@@ -76,12 +78,50 @@ export default function App() {
         <Stack.Screen
           name="CalculatorScreen"
           component={CalculatorScreen}
-          options={{ headerShown: true }}
+          options={({ navigation }) => ({
+            headerLeft: () => (
+              <HeaderBackButton
+                onPress={() => navigation.goBack()}
+                tintColor="#888"
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name="ResultScreen"
           component={ResultScreen}
-          options={{ headerShown: false }}
+          options={({ navigation }) => ({
+            headerLeft: () => (
+              <HeaderBackButton
+                onPress={() => navigation.goBack()}
+                tintColor="#888"
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="Simulation"
+          component={Simulation}
+          options={({ navigation }) => ({
+            headerLeft: () => (
+              <HeaderBackButton
+                onPress={() => navigation.goBack()}
+                tintColor="#888"
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="SimulationList"
+          component={SimulationList}
+          options={({ navigation }) => ({
+            headerLeft: () => (
+              <HeaderBackButton
+                onPress={() => navigation.goBack()}
+                tintColor="#888"
+              />
+            ),
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>

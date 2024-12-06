@@ -18,7 +18,6 @@ import {
   NewsTitle,
 } from "../components/Style";
 import PagerView from "react-native-pager-view";
-import Footer from "../components/Footer";
 
 // npm install react-native-pager-view
 // expo install react-native-screens react-native-safe-area-context
@@ -73,6 +72,7 @@ export default function Main({ navigation }) {
 
   return (
     <>
+      {/* 캐러셀 */}
       <View style={{ height: 250, marginVertical: 10 }}>
         <PagerView style={{ flex: 1 }} initialPage={0}>
           <View style={styles.page} key="1">
@@ -88,6 +88,7 @@ export default function Main({ navigation }) {
         </PagerView>
       </View>
 
+      {/* 카테고리 선택 */}
       <ScrollView style={{ width: "100%" }}>
         <Container>
           <MenuGrid>
@@ -107,6 +108,9 @@ export default function Main({ navigation }) {
             ))}
           </MenuGrid>
 
+          {/* 시뮬레이션 추천 */}
+
+          {/* 주목해야 할 정보 */}
           <NewsSection>
             {newsItems.map((item) => (
               <NewsCard key={item.id}>
@@ -115,7 +119,6 @@ export default function Main({ navigation }) {
             ))}
           </NewsSection>
         </Container>
-        <Footer />
       </ScrollView>
     </>
   );
