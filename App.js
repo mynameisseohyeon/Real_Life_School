@@ -1,7 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import React, { createContext, useState } from "react";
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/elements";
@@ -11,6 +8,8 @@ import HousingList from "./screen/HousingList";
 import FinanceList from "./screen/FinanceList";
 import LaborList from "./screen/LaborList";
 import Detail from "./screen/Detail";
+import CalculatorScreen from "./screen/CalculatorScreen";
+import ResultScreen from "./screen/ResultScreen";
 
 // npm install @react-navigation/native
 // npm install @react-navigation/stack
@@ -74,16 +73,17 @@ export default function App() {
             ),
           })}
         />
+        <Stack.Screen
+          name="CalculatorScreen"
+          component={CalculatorScreen}
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="ResultScreen"
+          component={ResultScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

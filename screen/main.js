@@ -1,17 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
-  Dimensions,
-  Platform,
+  StyleSheet,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
   Container,
-  Header,
-  HeaderText,
   MenuGrid,
   MenuItem,
   MenuIcon,
@@ -21,7 +18,6 @@ import {
   NewsTitle,
 } from "../components/Style";
 import PagerView from "react-native-pager-view";
-import { StyleSheet } from "react-native";
 import Footer from "../components/Footer";
 
 // npm install react-native-pager-view
@@ -37,6 +33,9 @@ export default function Main({ navigation }) {
   };
   const handleLaborListPress = () => {
     navigation.navigate("LaborList");
+  };
+  const handleCalculatorScreenPress = () => {
+    navigation.navigate("CalculatorScreen");
   };
 
   const menuItems = [
@@ -62,7 +61,7 @@ export default function Main({ navigation }) {
       id: 4,
       title: "실수령액 계산기",
       icon: "wallet-outline",
-      onPress: handleLaborListPress,
+      onPress: handleCalculatorScreenPress,
     },
   ];
 
@@ -91,17 +90,19 @@ export default function Main({ navigation }) {
 
       <ScrollView style={{ width: "100%" }}>
         <Container>
-          {/* <Header>
-            <HeaderText>Real Life School</HeaderText>
-          </Header> */}
-
           <MenuGrid>
             {menuItems.map((item) => (
               <MenuItem key={item.id} onPress={item.onPress}>
                 <MenuIcon>
                   <Ionicons name={item.icon} size={24} color="#3D0F2F" />
                 </MenuIcon>
-                <MenuText>{item.title}</MenuText>
+                <TouchableOpacity
+                  onPress={() =>
+                    item.screen && navigation.navigate(item.screen)
+                  }
+                >
+                  <MenuText>{item.title}</MenuText>
+                </TouchableOpacity>
               </MenuItem>
             ))}
           </MenuGrid>
@@ -121,20 +122,10 @@ export default function Main({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: 200,
-  },
   page: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#f8f9fa",
     height: "100%",
-  },
-  webFallback: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: 200,
-    backgroundColor: "#f1f1f1",
   },
 });
