@@ -26,13 +26,13 @@ import Footer from "../components/Footer";
 
 export default function Main({ navigation }) {
   const handleHousingListPress = () => {
-    navigation.navigate("HousingList");
+    navigation.navigate("HousingDictionaryScreen");
   };
   const handleFinanceListPress = () => {
-    navigation.navigate("FinanceList");
+    navigation.navigate("DictionaryScreen");
   };
   const handleLaborListPress = () => {
-    navigation.navigate("LaborList");
+    navigation.navigate("PolicyListPage");
   };
   const handleCalculatorScreenPress = () => {
     navigation.navigate("CalculatorScreen");
