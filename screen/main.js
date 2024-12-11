@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
+  Button,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -16,8 +17,10 @@ import {
   NewsSection,
   NewsCard,
   NewsTitle,
+  SimulationItem,
 } from "../components/Style";
 import PagerView from "react-native-pager-view";
+import Carousel from "../components/Carousel";
 
 // npm install react-native-pager-view
 // expo install react-native-screens react-native-safe-area-context
@@ -35,6 +38,9 @@ export default function Main({ navigation }) {
   };
   const handleCalculatorScreenPress = () => {
     navigation.navigate("CalculatorScreen");
+  };
+  const handleSimulationPress = () => {
+    navigation.navigate("Simulation");
   };
 
   const menuItems = [
@@ -72,7 +78,7 @@ export default function Main({ navigation }) {
 
   return (
     <>
-      {/* 캐러셀 */}
+      {/* 캐러셀 - 인기 정보 캐러셀 */}
       <View style={{ height: 250, marginVertical: 10 }}>
         <PagerView style={{ flex: 1 }} initialPage={0}>
           <View style={styles.page} key="1">
@@ -88,9 +94,9 @@ export default function Main({ navigation }) {
         </PagerView>
       </View>
 
-      {/* 카테고리 선택 */}
       <ScrollView style={{ width: "100%" }}>
         <Container>
+          {/* 카테고리 선택 */}
           <MenuGrid>
             {menuItems.map((item) => (
               <MenuItem key={item.id} onPress={item.onPress}>
@@ -108,7 +114,32 @@ export default function Main({ navigation }) {
             ))}
           </MenuGrid>
 
-          {/* 시뮬레이션 추천 */}
+          {/* 시뮬레이션 추천 캐러셀 */}
+          <Carousel />
+          <View style={styles.simulationButtonContainer}>
+            <MenuGrid>
+              {[
+                {
+                  title: "시뮬레이션",
+                  icon: "game-controller-outline",
+                  onPress: handleSimulationPress,
+                },
+              ].map((simulationItem, index) => (
+                <SimulationItem key={index} onPress={simulationItem.onPress}>
+                  <MenuIcon>
+                    <Ionicons
+                      name={simulationItem.icon}
+                      size={24}
+                      color="#3D0F2F"
+                    />
+                  </MenuIcon>
+                  <TouchableOpacity onPress={simulationItem.onPress}>
+                    <MenuText>{simulationItem.title}</MenuText>
+                  </TouchableOpacity>
+                </SimulationItem>
+              ))}
+            </MenuGrid>
+          </View>
 
           {/* 주목해야 할 정보 */}
           <NewsSection>
@@ -130,5 +161,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#f8f9fa",
     height: "100%",
+  },
+  simulationButtonContainer: {
+    marginVertical: 20,
+    paddingHorizontal: 10,
   },
 });

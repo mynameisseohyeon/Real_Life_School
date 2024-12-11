@@ -46,6 +46,20 @@ export const MenuItem = styled.TouchableOpacity`
   shadow-radius: 3.84px;
 `;
 
+export const SimulationItem = styled.TouchableOpacity`
+  width: 100%;
+  background-color: #ffffff;
+  padding: 20px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  align-items: center;
+  elevation: 2;
+  shadow-color: #000;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.25;
+  shadow-radius: 3.84px;
+`;
+
 export const MenuIcon = styled.View`
   width: 50px;
   height: 50px;
