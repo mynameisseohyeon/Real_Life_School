@@ -12,6 +12,10 @@ import CalculatorScreen from "./screen/CalculatorScreen";
 import ResultScreen from "./screen/ResultScreen";
 import Simulation from "./screen/Simulation";
 import SimulationList from "./screen/SimulationList";
+import DictionaryScreen from "./screen/DictionaryScreen";
+import HousingDictionaryScreen from "./screen/HousingDictionaryScreen";
+import PolicyListPage from "./screen/PolicyListPage";
+import PolicyDetailPage from "./screen/PolicyDetailPage";
 
 // npm install @react-navigation/native
 // npm install @react-navigation/stack
@@ -122,6 +126,27 @@ export default function App() {
               />
             ),
           })}
+        />
+        <Stack.Screen
+          name="DictionaryScreen"
+          component={DictionaryScreen}
+          options={{ title: "금융 용어 사전" }}
+        />
+        <Stack.Screen
+          name="HousingDictionaryScreen"
+          component={HousingDictionaryScreen}
+          options={{ title: "주택 용어 사전" }}
+        />
+
+        <Stack.Screen
+          name="PolicyListPage"
+          component={PolicyListPage}
+          options={{ title: "청년 정책" }}
+        />
+        <Stack.Screen
+          name="PolicyDetailPage"
+          component={PolicyDetailPage}
+          options={{ title: "정책 상세" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
