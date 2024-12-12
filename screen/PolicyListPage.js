@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Modal, Button, TextInput } from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  ActivityIndicator,
+  Modal,
+  TextInput,
+} from 'react-native';
 import { XMLParser } from 'fast-xml-parser';
 
 const PolicyListPage = ({ navigation }) => {
@@ -18,13 +27,28 @@ const PolicyListPage = ({ navigation }) => {
     { label: '서울', value: '003002001' },
     { label: '부산', value: '003002002' },
     { label: '대구', value: '003002003' },
-    { label: '모든 지역', value: '' },  
+    { label: '인천', value: '003002004' },
+    { label: '광주', value: '003002005' },
+    { label: '대전', value: '003002006' },
+    { label: '울산', value: '003002007' },
+    { label: '경기', value: '003002008' },
+    { label: '강원', value: '003002009' },
+    { label: '충북', value: '003002010' },
+    { label: '충남', value: '003002011' },
+    { label: '전북', value: '003002012' },
+    { label: '전남', value: '003002013' },
+    { label: '경북', value: '003002014' },
+    { label: '경남', value: '003002015' },
+    { label: '제주', value: '003002016' },
+    { label: '모든 지역', value: '' },
   ];
 
   useEffect(() => {
     const fetchPolicies = async () => {
       try {
-        const response = await fetch(`https://www.youthcenter.go.kr/opi/youthPlcyList.do?openApiVlak=${openApiVlak}&display=${display}&pageIndex=${pageIndex}&srchPolyBizSecd=${selectedRegion}`);
+        const response = await fetch(
+          `https://www.youthcenter.go.kr/opi/youthPlcyList.do?openApiVlak=${openApiVlak}&display=${display}&pageIndex=${pageIndex}&srchPolyBizSecd=${selectedRegion}`
+        );
         const xmlString = await response.text();
         const parser = new XMLParser();
         const result = parser.parse(xmlString);
@@ -43,13 +67,14 @@ const PolicyListPage = ({ navigation }) => {
   }, [pageIndex, selectedRegion]);
 
   useEffect(() => {
-    // 검색 기능: 검색어에 맞는 정책 필터링
     if (searchQuery === '') {
       setFilteredData(data);
     } else {
-      setFilteredData(data.filter(item =>
-        item.polyBizSjnm.toLowerCase().includes(searchQuery.toLowerCase())
-      ));
+      setFilteredData(
+        data.filter((item) =>
+          item.polyBizSjnm.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
     }
   }, [searchQuery, data]);
 
@@ -80,9 +105,13 @@ const PolicyListPage = ({ navigation }) => {
       animationType="slide"
       onRequestClose={() => setRegionModalVisible(false)}
     >
-      <View style={styles.modalContainer}>
+      <TouchableOpacity
+        style={styles.modalContainer}
+        activeOpacity={1}
+        onPress={() => setRegionModalVisible(false)}
+      >
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Select Region</Text>
+          <Text style={styles.modalTitle}>지역 선택</Text>
           <FlatList
             data={regions}
             keyExtractor={(item) => item.value}
@@ -99,11 +128,10 @@ const PolicyListPage = ({ navigation }) => {
             )}
           />
         </View>
-      </View>
+      </TouchableOpacity>
     </Modal>
   );
 
-  // 페이지 숫자 표시 (현재 페이지, 앞뒤 두 페이지)
   const renderPagination = () => {
     const pages = [];
     for (let i = pageIndex - 2; i <= pageIndex + 2; i++) {
@@ -115,7 +143,7 @@ const PolicyListPage = ({ navigation }) => {
     return (
       <View style={styles.pagination}>
         <TouchableOpacity onPress={() => handlePageChange(-1)} style={styles.pageButton}>
-          <Text style={styles.pageText}>Previous</Text>
+          <Text style={styles.pageText}>{'<'}</Text>
         </TouchableOpacity>
 
         <View style={styles.pageNumbers}>
@@ -125,7 +153,7 @@ const PolicyListPage = ({ navigation }) => {
               onPress={() => setPageIndex(pageNum)}
               style={[
                 styles.pageNumberButton,
-                pageNum === pageIndex && styles.activePageNumberButton
+                pageNum === pageIndex && styles.activePageNumberButton,
               ]}
             >
               <Text style={styles.pageNumberText}>{pageNum}</Text>
@@ -134,7 +162,7 @@ const PolicyListPage = ({ navigation }) => {
         </View>
 
         <TouchableOpacity onPress={() => handlePageChange(1)} style={styles.pageButton}>
-          <Text style={styles.pageText}>Next</Text>
+          <Text style={styles.pageText}>{'>'}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -142,23 +170,35 @@ const PolicyListPage = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* 검색 바 */}
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Search by policy title..."
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-      />
-
-      {/* 지역 선택 버튼 */}
-      <Button title="지역 선택" onPress={() => setRegionModalVisible(true)} />
+      {/* 검색 바와 지역 선택 버튼 */}
+      <View style={styles.searchAndRegionContainer}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="제목을 검색하세요..."
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+        <TouchableOpacity
+          style={styles.regionButton}
+          onPress={() => setRegionModalVisible(true)}
+        >
+          <Text style={styles.regionButtonText}>
+            {selectedRegion
+              ? regions.find((r) => r.value === selectedRegion)?.label || '지역 선택'
+              : '지역 선택'}
+          </Text>
+        </TouchableOpacity>
+      </View>
 
       {/* 정책 목록 */}
       <FlatList
         data={filteredData}
         keyExtractor={(item) => item.bizId}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handlePress(item.bizId)} style={styles.card}>
+          <TouchableOpacity
+            onPress={() => handlePress(item.bizId)}
+            style={styles.card}
+          >
             <Text style={styles.title}>{item.polyBizSjnm}</Text>
             <Text style={styles.description}>{item.polyItcnCn}</Text>
           </TouchableOpacity>
@@ -182,15 +222,33 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#f5f5f5',
   },
+  searchAndRegionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+    width: '100%',
+  },
   searchInput: {
+    flex: 1,
     height: 45,
     borderColor: '#ddd',
     borderWidth: 1,
     borderRadius: 25,
     paddingHorizontal: 15,
-    marginBottom: 16,
-    width: '100%',
     backgroundColor: '#fff',
+    marginRight: 10,
+  },
+  regionButton: {
+    backgroundColor: '#007BFF',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 25,
+  },
+  regionButtonText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   card: {
     marginBottom: 16,
@@ -222,30 +280,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   pageButton: {
-    padding: 10,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 5,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: '#007BFF',
+    borderRadius: 4,
   },
   pageText: {
-    fontSize: 16,
-    color: '#007BFF',
+    color: '#fff',
+    fontSize: 14,
   },
   pageNumbers: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   pageNumberButton: {
-    padding: 10,
-    marginHorizontal: 5,
-    borderRadius: 5,
-    backgroundColor: '#f0f0f0',
+    marginHorizontal: 4,
+    padding: 8,
+    borderRadius: 4,
+    backgroundColor: '#ddd',
   },
   activePageNumberButton: {
     backgroundColor: '#007BFF',
   },
   pageNumberText: {
-    fontSize: 16,
-    color: '#333',
+    color: '#fff',
   },
   modalContainer: {
     flex: 1,
@@ -254,21 +312,23 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    backgroundColor: '#fff',
-    padding: 20,
-    borderRadius: 10,
     width: '80%',
-    maxHeight: '60%',
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 16,
+    alignItems: 'center',
   },
   modalTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 16,
   },
   modalItem: {
-    padding: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
+    width: '100%',
   },
   modalItemText: {
     fontSize: 16,

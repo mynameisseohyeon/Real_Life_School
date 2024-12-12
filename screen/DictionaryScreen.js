@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   activePageButton: {
-    backgroundColor: '#63B8E2',
+    backgroundColor: '#B2E1F4',
   },
   pageButtonText: {
     color: '#63B8E2',

@@ -26,17 +26,37 @@ import Footer from "../components/Footer";
 
 export default function Main({ navigation }) {
   const handleHousingListPress = () => {
-    navigation.navigate("HousingDictionaryScreen");
+    navigation.navigate("CategoryPage", { category: '주택계약' });
   };
   const handleFinanceListPress = () => {
-    navigation.navigate("DictionaryScreen");
+    navigation.navigate("CategoryPage", { category: '금융' });
   };
   const handleLaborListPress = () => {
-    navigation.navigate("PolicyListPage");
+    navigation.navigate("CategoryPage", { category: '노동법' });
   };
   const handleCalculatorScreenPress = () => {
     navigation.navigate("CalculatorScreen");
   };
+  const handleDictionaryPress = () => {
+    navigation.navigate("DictionaryScreen");
+  };
+  const handleHousingPress = () => {
+    navigation.navigate("HousingDictionaryScreen");
+  };
+  const handleLPolicyPress = () => {
+    navigation.navigate("PolicyListPage");
+  };
+  const NewsScreen1 = () => {
+    navigation.navigate("NewsPage", { category: '주택계약'});
+  };
+  const NewsScreen2 = () => {
+    navigation.navigate("NewsPage", { category: '금융'});
+  };
+  const NewsScreen3 = () => {
+    navigation.navigate("NewsPage", { category: '노동법'});
+  };
+
+
 
   const menuItems = [
     {
@@ -66,25 +86,31 @@ export default function Main({ navigation }) {
   ];
 
   const newsItems = [
-    { id: 1, title: "청년층을 위한 새로운 주택정책 발표" },
-    { id: 2, title: "2024년 달라지는 세금 제도 정리" },
-    { id: 3, title: "알바생이 꼭 알아야 할 노동권" },
+    { id: 1, title: "금융 관련 용어", onPress: handleDictionaryPress },
+    { id: 2, title: "주택 금융 용어", onPress: handleHousingPress, },
+    { id: 3, title: "청년 정책 정보", onPress: handleLPolicyPress, },
   ];
 
   return (
     <>
       <View style={{ height: 250, marginVertical: 10 }}>
         <PagerView style={{ flex: 1 }} initialPage={0}>
-          <View style={styles.page} key="1">
-            <Text>First page</Text>
-            <Text>Swipe ➡️</Text>
-          </View>
-          <View style={styles.page} key="2">
-            <Text>Second page</Text>
-          </View>
+          <TouchableOpacity onPress={NewsScreen1}>
+            <View style={styles.page} key="1">
+              <Text>First page</Text>
+              <Text>Swipe ➡️</Text>           
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={NewsScreen2}>
+            <View style={styles.page} key="2">
+              <Text>Second page</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={NewsScreen3}>
           <View style={styles.page} key="3">
             <Text>Third page</Text>
           </View>
+          </TouchableOpacity>
         </PagerView>
       </View>
 
@@ -109,7 +135,12 @@ export default function Main({ navigation }) {
 
           <NewsSection>
             {newsItems.map((item) => (
-              <NewsCard key={item.id}>
+              <NewsCard key={item.id} onPress={item.onPress}>
+                  <TouchableOpacity
+                  onPress={() =>
+                    item.screen && navigation.navigate(item.screen)
+                  }
+                ></TouchableOpacity>
                 <NewsTitle>{item.title}</NewsTitle>
               </NewsCard>
             ))}

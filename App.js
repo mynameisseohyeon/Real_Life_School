@@ -13,9 +13,9 @@ import ResultScreen from "./screen/ResultScreen";
 import DictionaryScreen from './screen/DictionaryScreen';
 import HousingDictionaryScreen from './screen/HousingDictionaryScreen';
 import PolicyListPage from './screen/PolicyListPage'; 
-import PolicyDetailPage from './screen/PolicyDetailPage';  
-
-
+import PolicyDetailPage from './screen/PolicyDetailPage'; 
+import CategoryPage from './screen/CategoryPage'; 
+import NewsPage from './screen/NewsPage'; 
 
 // npm install @react-navigation/native
 // npm install @react-navigation/stack
@@ -108,6 +108,17 @@ export default function App() {
           component={PolicyDetailPage} 
           options={{ title: '정책 상세' }} 
         />
+        <Stack.Screen 
+        name="CategoryPage" 
+        component={CategoryPage} 
+        options={({ route }) => ({ title: route.params.category })} 
+        />
+        <Stack.Screen 
+        name="NewsPage" 
+        component={NewsPage} 
+        options={({ route }) => ({ title: route.params.category })} 
+        />
+       
       </Stack.Navigator>
     </NavigationContainer>
   );
