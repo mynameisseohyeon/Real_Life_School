@@ -39,8 +39,8 @@ export default function Main({ navigation }) {
   const handleCalculatorScreenPress = () => {
     navigation.navigate("CalculatorScreen");
   };
-  const handleSimulationPress = () => {
-    navigation.navigate("Simulation");
+  const handleSimulationListPress = () => {
+    navigation.navigate("SimulationList");
   };
 
   const menuItems = [
@@ -122,7 +122,7 @@ export default function Main({ navigation }) {
                 {
                   title: "시뮬레이션",
                   icon: "game-controller-outline",
-                  onPress: handleSimulationPress,
+                  onPress: handleSimulationListPress,
                 },
               ].map((simulationItem, index) => (
                 <SimulationItem key={index} onPress={simulationItem.onPress}>

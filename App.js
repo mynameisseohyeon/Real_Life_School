@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/elements";
 
-import Main from "./screen/Main";
+import Main from "./screen/main";
 import HousingList from "./screen/HousingList";
 import FinanceList from "./screen/FinanceList";
 import LaborList from "./screen/LaborList";
