@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Container, SimulationItem } from "../components/Style";
 
-export default function Simulation({ route }) {
+export default function Simulation({ route, navigation }) {
   // 안전한 데이터 추출
   const { selectedItem } = route.params || {};
   const [selectedChoice, setSelectedChoice] = useState(null);
@@ -24,6 +24,10 @@ export default function Simulation({ route }) {
 
   const handleChoicePress = (choiceIndex) => {
     setSelectedChoice(choiceIndex);
+  };
+
+  const handleComplete = () => {
+    navigation.navigate("Main");
   };
 
   return (
@@ -87,6 +91,13 @@ export default function Simulation({ route }) {
               {selectedItem.keyLearnings[selectedChoice]}
             </Text>
           </View>
+
+          <TouchableOpacity
+            style={styles.completeButton}
+            onPress={handleComplete}
+          >
+            <Text style={styles.completeButtonText}>완료</Text>
+          </TouchableOpacity>
         </>
       )}
     </ScrollView>
@@ -157,5 +168,18 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#666",
     lineHeight: 22,
+  },
+  completeButton: {
+    backgroundColor: "#007bff",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 15,
+    marginBottom: 20,
+  },
+  completeButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
