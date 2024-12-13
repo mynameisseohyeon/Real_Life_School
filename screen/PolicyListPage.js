@@ -13,6 +13,7 @@ import {
 import { XMLParser } from "fast-xml-parser";
 import getEnvVars from "../enviroments";
 const { OPEN_API_VLAK } = getEnvVars();
+import Constants from "expo-constants";
 
 const PolicyListPage = ({ navigation }) => {
   const [data, setData] = useState([]);

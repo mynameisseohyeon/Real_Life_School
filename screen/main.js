@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Button,
+  Image,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -21,6 +22,9 @@ import {
 } from "../components/Style";
 import PagerView from "react-native-pager-view";
 import Carousel from "../components/Carousel";
+import Issue01 from "../assets/images/issue001.jpg";
+import Issue02 from "../assets/images/issue002.jpg";
+import Issue03 from "../assets/images/issue003.jpg";
 
 // npm install react-native-pager-view
 // expo install react-native-screens react-native-safe-area-context
@@ -44,19 +48,19 @@ export default function Main({ navigation }) {
     navigation.navigate("CategoryPage", { category: "노동법" });
   };
   const handleCalculatorScreenPress = () => {
-    navigation.navigate("CalculatorScreen");
+    navigation.navigate("CalculatorScreen"); // 실수령액 계산기
   };
   const handleSimulationListPress = () => {
-    navigation.navigate("SimulationList");
+    navigation.navigate("SimulationList"); // 시뮬레이션
   };
   const handleDictionaryPress = () => {
-    navigation.navigate("DictionaryScreen");
+    navigation.navigate("DictionaryScreen"); // 금융 용어 사전
   };
   const handleHousingPress = () => {
-    navigation.navigate("HousingDictionaryScreen");
+    navigation.navigate("HousingDictionaryScreen"); // 주택 용어 사전
   };
   const handleLPolicyPress = () => {
-    navigation.navigate("PolicyListPage");
+    navigation.navigate("PolicyListPage"); // 청년 정책
   };
   const NewsScreen1 = () => {
     navigation.navigate("NewsPage", { category: "주택계약" });
@@ -73,19 +77,19 @@ export default function Main({ navigation }) {
       id: 1,
       title: "주택 용어 사전",
       icon: "home-outline",
-      onPress: handleHousingListPress,
+      onPress: handleHousingPress,
     },
     {
       id: 2,
       title: "금융 용어 사전",
       icon: "cash-outline",
-      onPress: handleFinanceListPress,
+      onPress: handleDictionaryPress,
     },
     {
       id: 3,
       title: "청년 정책",
       icon: "briefcase-outline",
-      onPress: handleLaborListPress,
+      onPress: handleLPolicyPress,
     },
     {
       id: 4,
@@ -96,9 +100,21 @@ export default function Main({ navigation }) {
   ];
 
   const newsItems = [
-    { id: 1, title: "금융 관련 용어", onPress: handleDictionaryPress },
-    { id: 2, title: "주택 금융 용어", onPress: handleHousingPress },
-    { id: 3, title: "청년 정책 정보", onPress: handleLPolicyPress },
+    {
+      id: 1,
+      title: "금융 관련 이슈 바로 확인하기",
+      onPress: handleFinanceListPress,
+    },
+    {
+      id: 2,
+      title: "주택 관련 이슈 바로 확인하기",
+      onPress: handleHousingListPress,
+    },
+    {
+      id: 3,
+      title: "노동법 관련 이슈 바로 확인하기",
+      onPress: handleLaborListPress,
+    },
   ];
 
   return (
@@ -108,18 +124,26 @@ export default function Main({ navigation }) {
         <PagerView style={{ flex: 1 }} initialPage={0}>
           <TouchableOpacity onPress={NewsScreen1}>
             <View style={styles.page} key="1">
-              <Text>주택계약 뉴스</Text>
-              <Text>Swipe ➡️</Text>
+              <Image
+                source={Issue01}
+                style={{ width: "100%", height: "100%" }}
+              />
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={NewsScreen2}>
             <View style={styles.page} key="2">
-              <Text>금융 뉴스</Text>
+              <Image
+                source={Issue02}
+                style={{ width: "100%", height: "100%" }}
+              />
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={NewsScreen3}>
             <View style={styles.page} key="3">
-              <Text>노동법 뉴스</Text>
+              <Image
+                source={Issue03}
+                style={{ width: "100%", height: "100%" }}
+              />
             </View>
           </TouchableOpacity>
         </PagerView>
@@ -171,6 +195,7 @@ export default function Main({ navigation }) {
         <Container>
           {/* 주목해야 할 정보 */}
           <NewsSection>
+            <Text style={styles.title}>이슈 한 눈에 확인하기</Text>
             {newsItems.map((item) => (
               <NewsCard key={item.id} onPress={item.onPress}>
                 <TouchableOpacity
@@ -198,5 +223,12 @@ const styles = StyleSheet.create({
   simulationButtonContainer: {
     marginVertical: 20,
     paddingHorizontal: 10,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+    fontFamily: "MangoDdobak",
   },
 });

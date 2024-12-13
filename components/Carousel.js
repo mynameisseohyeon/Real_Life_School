@@ -8,9 +8,9 @@ import {
   StyleSheet,
   Text,
 } from "react-native";
-import Simulation01 from "../assets/images/simulation01.jpg";
-import Simulation02 from "../assets/images/simulation02.jpg";
-import Simulation03 from "../assets/images/simulation03.jpg";
+import Simulation01 from "../assets/images/simulation01.png";
+import Simulation02 from "../assets/images/simulation02.png";
+import Simulation03 from "../assets/images/simulation03.png";
 
 const windowWidth = Dimensions.get("window").width;
 const margin = 8;

@@ -24,7 +24,7 @@ const PolicyDetailPage = ({ route }) => {
   useEffect(() => {
     const fetchPolicyDetail = async () => {
       try {
-        const url = `https://www.youthcenter.go.kr/opi/youthPlcyList.do?openApiVlak=${OPEN_API_VLAK}&display=${display}&pageIndex=${pageIndex}&srchPolicyId=${policyId}`;
+        const url = `https://www.youthcenter.go.kr/opi/youthPlcyList.do?openApiVlak=${openApiVlak}&display=${display}&pageIndex=${pageIndex}&srchPolicyId=${policyId}`;
         //console.log("Fetching data for policyId:", policyId);
 
         const response = await fetch(url);
