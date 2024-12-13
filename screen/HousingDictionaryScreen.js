@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Text, TextInput, FlatList, StyleSheet, View, TouchableOpacity } from 'react-native';
 import axios from 'axios'; //yarn add axios
+import Constants from 'expo-constants';
 
 const HousingDictionaryScreen = () => {
   const [page, setPage] = useState(1); // 현재 페이지
@@ -12,7 +13,7 @@ const HousingDictionaryScreen = () => {
 
   const fetchTerms = async () => {
     setLoading(true);
-    const apiKey = 'Xr3fwLdlP1OiSvzeBtppseDLww27mgUe9MrZxS/uJ/2r5ckjk3k5Gga3uP8TYqF9aQudNiU0AXvE2PtHy/34/A=='; // 인증키, 나중에 env로
+    const apiKey = Constants.expoConfig.extra.apiKey;
     const url = `https://api.odcloud.kr/api/3071592/v1/uddi:3ce75abb-784f-499f-9c3c-8c56de47535d?page=${page}&perPage=${perPage}&returnType=JSON&serviceKey=${apiKey}`;
     try {
       const response = await axios.get(url);

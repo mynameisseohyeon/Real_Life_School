@@ -97,18 +97,18 @@ export default function Main({ navigation }) {
         <PagerView style={{ flex: 1 }} initialPage={0}>
           <TouchableOpacity onPress={NewsScreen1}>
             <View style={styles.page} key="1">
-              <Text>First page</Text>
+              <Text>주택계약 뉴스</Text>
               <Text>Swipe ➡️</Text>           
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={NewsScreen2}>
             <View style={styles.page} key="2">
-              <Text>Second page</Text>
+              <Text>금융 뉴스</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={NewsScreen3}>
           <View style={styles.page} key="3">
-            <Text>Third page</Text>
+            <Text>노동법 뉴스</Text>
           </View>
           </TouchableOpacity>
         </PagerView>

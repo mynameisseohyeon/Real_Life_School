@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, ScrollView, Linking } from 'react-native';
 import { XMLParser } from 'fast-xml-parser'; // yarn add fast-xml-parser
+import Constants from 'expo-constants';
 
 const PolicyDetailPage = ({ route }) => {
   const { policyId } = route.params; 
   const [policyDetail, setPolicyDetail] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const openApiVlak = '6575be77c522532b6165f0ec'; // OpenAPI 인증키, 나중에 env로
+  const openApiVlak = Constants.expoConfig.extra.openApiVlak; 
   const display = 1;
   const pageIndex = 1; 
 
@@ -15,15 +16,12 @@ const PolicyDetailPage = ({ route }) => {
     const fetchPolicyDetail = async () => {
       try {
         const url = `https://www.youthcenter.go.kr/opi/youthPlcyList.do?openApiVlak=${openApiVlak}&display=${display}&pageIndex=${pageIndex}&srchPolicyId=${policyId}`;
-        //console.log("Fetching data for policyId:", policyId);
 
         const response = await fetch(url);
         const xmlString = await response.text();
         const parser = new XMLParser();
         const result = parser.parse(xmlString);
 
-        // API 응답 확인
-        //console.log("API Response:", result);
 
         // 응답 데이터가 있는지 확인하고 처리
         if (result.youthPolicyList && result.youthPolicyList.youthPolicy) {

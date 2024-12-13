@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Text, TextInput, FlatList, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Button, Card } from 'react-native-paper';
 import axios from 'axios';
+import Constants from 'expo-constants';
 
 const DictionaryScreen = () => {
   const [page, setPage] = useState(1);
@@ -13,7 +14,7 @@ const DictionaryScreen = () => {
 
   const fetchTerms = async () => {
     setLoading(true);
-    const apiKey = 'Xr3fwLdlP1OiSvzeBtppseDLww27mgUe9MrZxS/uJ/2r5ckjk3k5Gga3uP8TYqF9aQudNiU0AXvE2PtHy/34/A=='; // 발급받은 인증키 입력
+    const apiKey = Constants.expoConfig.extra.apiKey;
     const url = `https://api.odcloud.kr/api/15044350/v1/uddi:88825fbb-6d63-4209-9e51-c777cb236f8b?page=${page}&perPage=${perPage}&returnType=JSON&serviceKey=${apiKey}`;
     try {
       const response = await axios.get(url);

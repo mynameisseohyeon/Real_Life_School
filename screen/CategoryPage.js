@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Linking, StyleSheet, ActivityIndicator } from 'react-native';
 import axios from 'axios';
+import Constants from 'expo-constants';
 
-const NAVER_CLIENT_ID = 'a4F8pqh9S4F7RKdzEH8E'; // 여기에 실제 CLIENT_ID를 입력하세요
-const NAVER_CLIENT_SECRET = 'y_UlhDvqTZ'; // 여기에 실제 CLIENT_SECRET을 입력하세요
+const NAVER_CLIENT_ID = Constants.expoConfig.extra.naverid;
+const NAVER_CLIENT_SECRET = Constants.expoConfig.extra.naverkey;
 
 const CategoryPage = ({ route }) => {
   const { category } = route.params;

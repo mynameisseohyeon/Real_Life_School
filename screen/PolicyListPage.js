@@ -10,6 +10,7 @@ import {
   TextInput,
 } from 'react-native';
 import { XMLParser } from 'fast-xml-parser';
+import Constants from 'expo-constants';
 
 const PolicyListPage = ({ navigation }) => {
   const [data, setData] = useState([]);
@@ -20,7 +21,7 @@ const PolicyListPage = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
 
-  const openApiVlak = '6575be77c522532b6165f0ec'; // 인증키, 나중에 env로
+  const openApiVlak = Constants.expoConfig.extra.openApiVlak; 
   const display = 10; // 페이지당 출력 건수
 
   const regions = [
@@ -201,6 +202,7 @@ const PolicyListPage = ({ navigation }) => {
           >
             <Text style={styles.title}>{item.polyBizSjnm}</Text>
             <Text style={styles.description}>{item.polyItcnCn}</Text>
+            <Text style={styles.footer}>{`지원 자격: ${item.ageInfo || '미정'}`}</Text>
           </TouchableOpacity>
         )}
       />
@@ -240,7 +242,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   regionButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#63B8E2',
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 25,
@@ -282,7 +284,7 @@ const styles = StyleSheet.create({
   pageButton: {
     paddingHorizontal: 16,
     paddingVertical: 8,
-    backgroundColor: '#007BFF',
+    backgroundColor: '#63B8E2',
     borderRadius: 4,
   },
   pageText: {
@@ -300,7 +302,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ddd',
   },
   activePageNumberButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#63B8E2',
   },
   pageNumberText: {
     color: '#fff',
