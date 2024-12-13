@@ -8,10 +8,11 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "extra": {
+      "apiKey": "Xr3fwLdlP1OiSvzeBtppseDLww27mgUe9MrZxS/uJ/2r5ckjk3k5Gga3uP8TYqF9aQudNiU0AXvE2PtHy/34/A==",
+      "openApiVlak": "6575be77c522532b6165f0ec",
       "naverid": "a4F8pqh9S4F7RKdzEH8E",
       "naverkey": "y_UlhDvqTZ"
     },
-    "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",

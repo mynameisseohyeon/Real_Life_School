@@ -10,12 +10,14 @@ import {
 import { XMLParser } from "fast-xml-parser"; // yarn add fast-xml-parser
 import getEnvVars from "../enviroments";
 const { OPEN_API_VLAK } = getEnvVars();
+import Constants from "expo-constants";
 
 const PolicyDetailPage = ({ route }) => {
   const { policyId } = route.params;
   const [policyDetail, setPolicyDetail] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const openApiVlak = Constants.expoConfig.extra.openApiVlak;
   const display = 1;
   const pageIndex = 1;
 
@@ -29,9 +31,6 @@ const PolicyDetailPage = ({ route }) => {
         const xmlString = await response.text();
         const parser = new XMLParser();
         const result = parser.parse(xmlString);
-
-        // API 응답 확인
-        //console.log("API Response:", result);
 
         // 응답 데이터가 있는지 확인하고 처리
         if (result.youthPolicyList && result.youthPolicyList.youthPolicy) {

@@ -21,26 +21,26 @@ export const calculateSalary = (salaryType, severanceIncluded, salary, nonTaxabl
     const longTermCare = Math.floor(healthInsurance * 0.1295);
     const employmentInsurance = Math.floor(taxableSalary * 0.009);
 
-    // 소득세 계산 (예시, 실제로는 세액표 기반)
+    // 소득세 계산 
     const calculateIncomeTax = (salary, dependents, children) => {
         let tax = 0;
 
-        // 간이세액표에 맞게 계산 (예시, 실제 국세청 자료에 맞게 수정해야 합니다)
+        // 간이세액표에 맞게 계산 
         if (salary <= 12000000) {
-            tax = salary * 0.06; // 예시로 6% 세율 적용
+            tax = salary * 0.06; 
         } else if (salary <= 46000000) {
             tax = salary * 0.15;
         } else {
             tax = salary * 0.25;
         }
 
-        // 부양가족 공제 (가족 1명당 예시로 10만원 공제)
-        tax -= dependents * 100000;
+        // 부양가족 공제 
+        tax -= dependents * 125000;
 
-        // 20세 이하 자녀 공제 (자녀 1명당 예시로 5만원 공제)
-        tax -= children * 50000;
+        // 20세 이하 자녀 공제 
+        tax -= children * 150000;
 
-        // 최소 세액 0원 (소득세는 음수가 될 수 없으므로)
+        // 최소 세액 0원 
         return Math.max(0, tax);
     };
 

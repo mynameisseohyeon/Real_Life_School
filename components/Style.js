@@ -79,6 +79,7 @@ export const MenuText = styled.Text`
 export const NewsSection = styled.View`
   padding: 15px;
   width: 100%;
+  margin-bottom: 10px;
 `;
 
 export const NewsCard = styled.TouchableOpacity`

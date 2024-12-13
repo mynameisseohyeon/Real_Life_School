@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { HeaderBackButton } from "@react-navigation/elements";
 
-import Main from "./screen/main";
+import Main from "./screen/Main";
 import HousingList from "./screen/HousingList";
 import FinanceList from "./screen/FinanceList";
 import LaborList from "./screen/LaborList";
@@ -16,6 +16,8 @@ import DictionaryScreen from "./screen/DictionaryScreen";
 import HousingDictionaryScreen from "./screen/HousingDictionaryScreen";
 import PolicyListPage from "./screen/PolicyListPage";
 import PolicyDetailPage from "./screen/PolicyDetailPage";
+import CategoryPage from "./screen/CategoryPage";
+import NewsPage from "./screen/NewsPage";
 
 // npm install @react-navigation/native
 // npm install @react-navigation/stack
@@ -147,6 +149,16 @@ export default function App() {
           name="PolicyDetailPage"
           component={PolicyDetailPage}
           options={{ title: "정책 상세" }}
+        />
+        <Stack.Screen
+          name="CategoryPage"
+          component={CategoryPage}
+          options={({ route }) => ({ title: route.params.category })}
+        />
+        <Stack.Screen
+          name="NewsPage"
+          component={NewsPage}
+          options={({ route }) => ({ title: route.params.category })}
         />
       </Stack.Navigator>
     </NavigationContainer>

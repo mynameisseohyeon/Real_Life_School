@@ -11,6 +11,7 @@ import {
 import { Button, Card } from "react-native-paper"; //yarn add react-native-paper
 import axios from "axios"; //yarn add axios
 import getEnvVars from "../enviroments";
+import Constants from "expo-constants";
 const { ODCLOUD_API_KEY } = getEnvVars();
 
 const HousingDictionaryScreen = () => {
@@ -24,6 +25,7 @@ const HousingDictionaryScreen = () => {
   const fetchTerms = async () => {
     setLoading(true);
     const url = `https://api.odcloud.kr/api/3071592/v1/uddi:3ce75abb-784f-499f-9c3c-8c56de47535d?page=${page}&perPage=${perPage}&returnType=JSON&serviceKey=${ODCLOUD_API_KEY}`;
+
     try {
       const response = await axios.get(url);
       setTerms(response.data.data || []);
@@ -53,12 +55,7 @@ const HousingDictionaryScreen = () => {
     const maxVisiblePages = 2;
 
     for (let i = 1; i <= totalPages; i++) {
-      if (
-        //i === 1 ||
-        //i === totalPages ||
-        i >= page - maxVisiblePages &&
-        i <= page + maxVisiblePages
-      ) {
+      if (i >= page - maxVisiblePages && i <= page + maxVisiblePages) {
         pageNumbers.push(
           <TouchableOpacity
             key={i}
@@ -90,23 +87,22 @@ const HousingDictionaryScreen = () => {
         value={query}
         onChangeText={setQuery}
       />
-      <Button mode="contained" onPress={fetchTerms} style={styles.button}>
-        {loading ? "로딩 중..." : "새로고침"}
-      </Button>
-
+      <TouchableOpacity style={styles.refreshButton} onPress={fetchTerms}>
+        <Text style={styles.refreshButtonText}>
+          {loading ? "로딩 중..." : "새로고침"}
+        </Text>
+      </TouchableOpacity>
       <FlatList
         data={filteredTerms}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
-          <Card style={styles.card}>
-            <Card.Title
-              title={item.주택금융용어} //subtitle={`순번: ${item.순번}`}
-            />
-            <Card.Content>
-              <Text>설명: {item.용어설명}</Text>
-              <Text>대표 사용례: {item["대표 사용례"] || "없음"}</Text>
-            </Card.Content>
-          </Card>
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>{item.주택금융용어}</Text>
+            <Text style={styles.text}>설명: {item.용어설명}</Text>
+            <Text style={styles.text}>
+              대표 사용례: {item["대표 사용례"] || "없음"}
+            </Text>
+          </View>
         )}
         ListEmptyComponent={
           <View style={styles.empty}>
@@ -142,23 +138,52 @@ const HousingDictionaryScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    backgroundColor: "#f5f5f5",
+    padding: 20,
+    backgroundColor: "#F8F9FA",
   },
   input: {
-    height: 40,
-    borderColor: "gray",
+    height: 45,
+    borderColor: "#B0C4DE",
     borderWidth: 1,
     borderRadius: 8,
-    paddingHorizontal: 8,
-    marginBottom: 10,
+    paddingLeft: 12,
+    marginBottom: 20,
+    fontSize: 16,
+    backgroundColor: "#FFFFFF",
   },
-  button: {
-    marginBottom: 16,
+  refreshButton: {
+    marginBottom: 20,
+    paddingVertical: 12,
+    backgroundColor: "#63B8E2",
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  refreshButtonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "bold",
   },
   card: {
     marginVertical: 8,
     padding: 16,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 3,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#4A4A4A",
+    marginBottom: 8,
+  },
+  text: {
+    fontSize: 16,
+    color: "#4A4A4A",
+    marginBottom: 4,
   },
   empty: {
     alignItems: "center",
@@ -168,31 +193,31 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 16,
+    marginTop: 20,
   },
   pageButton: {
     marginHorizontal: 4,
     padding: 10,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#007BFF",
-    backgroundColor: "#fff",
+    borderColor: "#63B8E2",
+    backgroundColor: "#FFFFFF",
   },
   activePageButton: {
-    backgroundColor: "#007BFF",
+    backgroundColor: "#B2E1F4",
   },
   pageButtonText: {
-    color: "#007BFF",
+    color: "#63B8E2",
     fontWeight: "bold",
   },
   arrowButton: {
     marginHorizontal: 8,
     padding: 10,
     borderRadius: 8,
-    backgroundColor: "#007BFF",
+    backgroundColor: "#63B8E2",
   },
   arrowButtonText: {
-    color: "#fff",
+    color: "#FFFFFF",
     fontWeight: "bold",
   },
   dots: {

@@ -11,6 +11,7 @@ import {
 import { Button, Card } from "react-native-paper";
 import axios from "axios";
 import getEnvVars from "../enviroments";
+import Constants from "expo-constants";
 const { ODCLOUD_API_KEY } = getEnvVars();
 
 const DictionaryScreen = () => {
@@ -24,6 +25,7 @@ const DictionaryScreen = () => {
   const fetchTerms = async () => {
     setLoading(true);
     const url = `https://api.odcloud.kr/api/15044350/v1/uddi:88825fbb-6d63-4209-9e51-c777cb236f8b?page=${page}&perPage=${perPage}&returnType=JSON&serviceKey=${ODCLOUD_API_KEY}`;
+
     try {
       const response = await axios.get(url);
       setTerms(response.data.data || []);
@@ -199,7 +201,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
   },
   activePageButton: {
-    backgroundColor: "#63B8E2",
+    backgroundColor: "#B2E1F4",
   },
   pageButtonText: {
     color: "#63B8E2",

@@ -15,7 +15,7 @@ const CalculatorScreen = () => {
   const [children, setChildren] = useState(0); // 20세 이하 자녀 수
   const navigation = useNavigation();
 
-  // 임시로 화면의 헤더에 뒤로가기 버튼을 추가
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
