@@ -8,21 +8,21 @@ import {
   Linking,
 } from "react-native";
 import { XMLParser } from "fast-xml-parser"; // yarn add fast-xml-parser
-// import { OPEN_API_VLAK } from "@env";
+import getEnvVars from "../enviroments";
+const { OPEN_API_VLAK } = getEnvVars();
 
 const PolicyDetailPage = ({ route }) => {
   const { policyId } = route.params;
   const [policyDetail, setPolicyDetail] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const openApiVlak = "6575be77c522532b6165f0ec"; // OpenAPI 인증키, 나중에 env로
   const display = 1;
   const pageIndex = 1;
 
   useEffect(() => {
     const fetchPolicyDetail = async () => {
       try {
-        const url = `https://www.youthcenter.go.kr/opi/youthPlcyList.do?openApiVlak=${openApiVlak}&display=${display}&pageIndex=${pageIndex}&srchPolicyId=${policyId}`;
+        const url = `https://www.youthcenter.go.kr/opi/youthPlcyList.do?openApiVlak=${OPEN_API_VLAK}&display=${display}&pageIndex=${pageIndex}&srchPolicyId=${policyId}`;
         //console.log("Fetching data for policyId:", policyId);
 
         const response = await fetch(url);

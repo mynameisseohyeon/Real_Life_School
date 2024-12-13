@@ -7,6 +7,10 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "extra": {
+      "naverid": "a4F8pqh9S4F7RKdzEH8E",
+      "naverkey": "y_UlhDvqTZ"
+    },
     "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash-icon.png",

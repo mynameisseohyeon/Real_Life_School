@@ -4,15 +4,21 @@ import Constants from "expo-constants";
 // staging : 실제 운영 환경과 동일한 환경, 운영 이전에 기능 이외의 부분(성능, 보안 등)을 테스트하기 위한 환경
 // production : 실제 배포
 
-const ENV: any = {
+const ENV = {
   dev: {
-    apiUrl: "https://~",
+    OPEN_API_VLAK: "575be77c522532b6165f0ec",
+    ODCLOUD_API_KEY:
+      "Xr3fwLdlP1OiSvzeBtppseDLww27mgUe9MrZxS/uJ/2r5ckjk3k5Gga3uP8TYqF9aQudNiU0AXvE2PtHy/34/A==",
   },
   staging: {
-    apiUrl: "https://~",
+    OPEN_API_VLAK: "575be77c522532b6165f0ec",
+    ODCLOUD_API_KEY:
+      "Xr3fwLdlP1OiSvzeBtppseDLww27mgUe9MrZxS/uJ/2r5ckjk3k5Gga3uP8TYqF9aQudNiU0AXvE2PtHy/34/A==",
   },
   prod: {
-    apiUrl: "https://~",
+    OPEN_API_VLAK: "575be77c522532b6165f0ec",
+    ODCLOUD_API_KEY:
+      "Xr3fwLdlP1OiSvzeBtppseDLww27mgUe9MrZxS/uJ/2r5ckjk3k5Gga3uP8TYqF9aQudNiU0AXvE2PtHy/34/A==",
   },
 };
 

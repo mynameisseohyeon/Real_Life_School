@@ -40,4 +40,5 @@ yarn-error.*
 /userflow.md
 
 /.env
-environment.ts
+/environment.js
+**/environment.js

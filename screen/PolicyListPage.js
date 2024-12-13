@@ -11,7 +11,8 @@ import {
   TextInput,
 } from "react-native";
 import { XMLParser } from "fast-xml-parser";
-// import { OPEN_API_VLAK } from "@env";
+import getEnvVars from "../enviroments";
+const { OPEN_API_VLAK } = getEnvVars();
 
 const PolicyListPage = ({ navigation }) => {
   const [data, setData] = useState([]);
@@ -22,7 +23,6 @@ const PolicyListPage = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
-  const openApiVlak = "6575be77c522532b6165f0ec"; // 인증키, 나중에 env로
   const display = 10; // 페이지당 출력 건수
 
   const regions = [
@@ -36,7 +36,7 @@ const PolicyListPage = ({ navigation }) => {
     const fetchPolicies = async () => {
       try {
         const response = await fetch(
-          `https://www.youthcenter.go.kr/opi/youthPlcyList.do?openApiVlak=${openApiVlak}&display=${display}&pageIndex=${pageIndex}&srchPolyBizSecd=${selectedRegion}`
+          `https://www.youthcenter.go.kr/opi/youthPlcyList.do?openApiVlak=${OPEN_API_VLAK}&display=${display}&pageIndex=${pageIndex}&srchPolyBizSecd=${selectedRegion}`
         );
         const xmlString = await response.text();
         const parser = new XMLParser();

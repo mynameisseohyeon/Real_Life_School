@@ -1,7 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Text, TextInput, FlatList, StyleSheet, View, TouchableOpacity } from 'react-native';
-import { Button, Card } from 'react-native-paper';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import {
+  SafeAreaView,
+  Text,
+  TextInput,
+  FlatList,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+} from "react-native";
+import { Button, Card } from "react-native-paper";
+import axios from "axios";
+import getEnvVars from "../enviroments";
+const { ODCLOUD_API_KEY } = getEnvVars();
 
 const DictionaryScreen = () => {
   const [page, setPage] = useState(1);
@@ -9,12 +19,11 @@ const DictionaryScreen = () => {
   const [terms, setTerms] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   const fetchTerms = async () => {
     setLoading(true);
-    const apiKey = 'Xr3fwLdlP1OiSvzeBtppseDLww27mgUe9MrZxS/uJ/2r5ckjk3k5Gga3uP8TYqF9aQudNiU0AXvE2PtHy/34/A=='; // 발급받은 인증키 입력
-    const url = `https://api.odcloud.kr/api/15044350/v1/uddi:88825fbb-6d63-4209-9e51-c777cb236f8b?page=${page}&perPage=${perPage}&returnType=JSON&serviceKey=${apiKey}`;
+    const url = `https://api.odcloud.kr/api/15044350/v1/uddi:88825fbb-6d63-4209-9e51-c777cb236f8b?page=${page}&perPage=${perPage}&returnType=JSON&serviceKey=${ODCLOUD_API_KEY}`;
     try {
       const response = await axios.get(url);
       setTerms(response.data.data || []);
@@ -31,7 +40,9 @@ const DictionaryScreen = () => {
   }, [page, perPage]);
 
   const filteredTerms = query
-    ? terms.filter((item) => item.용어.includes(query) || item.설명.includes(query))
+    ? terms.filter(
+        (item) => item.용어.includes(query) || item.설명.includes(query)
+      )
     : terms;
 
   const totalPages = Math.ceil(totalCount / perPage);
@@ -41,16 +52,11 @@ const DictionaryScreen = () => {
     const maxVisiblePages = 2;
 
     for (let i = 1; i <= totalPages; i++) {
-      if (
-        (i >= page - maxVisiblePages && i <= page + maxVisiblePages)
-      ) {
+      if (i >= page - maxVisiblePages && i <= page + maxVisiblePages) {
         pageNumbers.push(
           <TouchableOpacity
             key={i}
-            style={[
-              styles.pageButton,
-              page === i && styles.activePageButton,
-            ]}
+            style={[styles.pageButton, page === i && styles.activePageButton]}
             onPress={() => setPage(i)}
           >
             <Text style={styles.pageButtonText}>{i}</Text>
@@ -79,11 +85,11 @@ const DictionaryScreen = () => {
         value={query}
         onChangeText={setQuery}
       />
-      
+
       {/* 새로고침 버튼 */}
       <TouchableOpacity style={styles.refreshButton} onPress={fetchTerms}>
         <Text style={styles.refreshButtonText}>
-          {loading ? '로딩 중...' : '새로고침'}
+          {loading ? "로딩 중..." : "새로고침"}
         </Text>
       </TouchableOpacity>
 
@@ -114,7 +120,7 @@ const DictionaryScreen = () => {
           onPress={() => setPage((prev) => Math.max(prev - 1, 1))}
           disabled={page === 1}
         >
-          <Text style={styles.arrowButtonText}>{'<'}</Text>
+          <Text style={styles.arrowButtonText}>{"<"}</Text>
         </TouchableOpacity>
 
         {renderPageNumbers()}
@@ -124,7 +130,7 @@ const DictionaryScreen = () => {
           onPress={() => setPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={page === totalPages}
         >
-          <Text style={styles.arrowButtonText}>{'>'}</Text>
+          <Text style={styles.arrowButtonText}>{">"}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -135,36 +141,36 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#F8F9FA',
+    backgroundColor: "#F8F9FA",
   },
   input: {
     height: 45,
-    borderColor: '#B0C4DE',
+    borderColor: "#B0C4DE",
     borderWidth: 1,
     borderRadius: 8,
     paddingLeft: 12,
     marginBottom: 20,
     fontSize: 16,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
   },
   refreshButton: {
     marginBottom: 20,
     paddingVertical: 12,
-    backgroundColor: '#63B8E2',
+    backgroundColor: "#63B8E2",
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
   refreshButtonText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   card: {
     marginVertical: 8,
     padding: 16,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderRadius: 12,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
@@ -172,16 +178,16 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    color: '#4A4A4A',
+    color: "#4A4A4A",
   },
   empty: {
-    alignItems: 'center',
+    alignItems: "center",
     marginVertical: 20,
   },
   paginationContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 20,
   },
   pageButton: {
@@ -189,31 +195,31 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#63B8E2',
-    backgroundColor: '#FFFFFF',
+    borderColor: "#63B8E2",
+    backgroundColor: "#FFFFFF",
   },
   activePageButton: {
-    backgroundColor: '#63B8E2',
+    backgroundColor: "#63B8E2",
   },
   pageButtonText: {
-    color: '#63B8E2',
-    fontWeight: 'bold',
+    color: "#63B8E2",
+    fontWeight: "bold",
   },
   arrowButton: {
     marginHorizontal: 8,
     padding: 10,
     borderRadius: 8,
-    backgroundColor: '#63B8E2',
+    backgroundColor: "#63B8E2",
   },
   arrowButtonText: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
+    color: "#FFFFFF",
+    fontWeight: "bold",
   },
   dots: {
     marginHorizontal: 4,
     fontSize: 16,
-    fontWeight: 'bold',
-    color: 'gray',
+    fontWeight: "bold",
+    color: "gray",
   },
 });
 
