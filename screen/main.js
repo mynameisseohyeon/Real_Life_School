@@ -30,6 +30,7 @@ import Carousel from "../components/Carousel";
 // npm install expo-modules-core
 // npm install expo-asset
 // npm install supports-color
+// npx expo install expo-constants
 
 export default function Main({ navigation }) {
   const handleHousingListPress = () => {
