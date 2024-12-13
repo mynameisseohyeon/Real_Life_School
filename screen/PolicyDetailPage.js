@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, ScrollView, Linking } from 'react-native';
-import { XMLParser } from 'fast-xml-parser'; // yarn add fast-xml-parser
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  ScrollView,
+  Linking,
+} from "react-native";
+import { XMLParser } from "fast-xml-parser"; // yarn add fast-xml-parser
+// import { OPEN_API_VLAK } from "@env";
 
 const PolicyDetailPage = ({ route }) => {
-  const { policyId } = route.params; 
+  const { policyId } = route.params;
   const [policyDetail, setPolicyDetail] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const openApiVlak = '6575be77c522532b6165f0ec'; // OpenAPI 인증키, 나중에 env로
+  const openApiVlak = "6575be77c522532b6165f0ec"; // OpenAPI 인증키, 나중에 env로
   const display = 1;
-  const pageIndex = 1; 
+  const pageIndex = 1;
 
   useEffect(() => {
     const fetchPolicyDetail = async () => {
@@ -27,9 +35,13 @@ const PolicyDetailPage = ({ route }) => {
 
         // 응답 데이터가 있는지 확인하고 처리
         if (result.youthPolicyList && result.youthPolicyList.youthPolicy) {
-          const policies = Array.isArray(result.youthPolicyList.youthPolicy) ? result.youthPolicyList.youthPolicy : [result.youthPolicyList.youthPolicy];
-          
-          const policyData = policies.find(policy => policy.bizId === policyId);
+          const policies = Array.isArray(result.youthPolicyList.youthPolicy)
+            ? result.youthPolicyList.youthPolicy
+            : [result.youthPolicyList.youthPolicy];
+
+          const policyData = policies.find(
+            (policy) => policy.bizId === policyId
+          );
           if (policyData) {
             setPolicyDetail(policyData);
           } else {
@@ -39,7 +51,7 @@ const PolicyDetailPage = ({ route }) => {
           console.log("No details found for this policy.");
         }
       } catch (error) {
-        console.error('Error fetching policy details:', error);
+        console.error("Error fetching policy details:", error);
       } finally {
         setLoading(false);
       }
@@ -77,12 +89,12 @@ const PolicyDetailPage = ({ route }) => {
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>지원 규모</Text>
-        <Text>{policyDetail.sporScvl || '정보 없음'}</Text>
+        <Text>{policyDetail.sporScvl || "정보 없음"}</Text>
       </View>
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>사업 운영 기간</Text>
-        <Text>{policyDetail.bizPrdCn || '정보 없음'}</Text>
+        <Text>{policyDetail.bizPrdCn || "정보 없음"}</Text>
       </View>
 
       <View style={styles.section}>
@@ -113,7 +125,10 @@ const PolicyDetailPage = ({ route }) => {
       {policyDetail.rqutUrla && (
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>신청 사이트</Text>
-          <Text style={styles.link} onPress={() => Linking.openURL(policyDetail.rqutUrla)}>
+          <Text
+            style={styles.link}
+            onPress={() => Linking.openURL(policyDetail.rqutUrla)}
+          >
             {policyDetail.rqutUrla}
           </Text>
         </View>
@@ -122,7 +137,10 @@ const PolicyDetailPage = ({ route }) => {
       {policyDetail.rfcSiteUrla1 && (
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>참고 사이트 1</Text>
-          <Text style={styles.link} onPress={() => Linking.openURL(policyDetail.rfcSiteUrla1)}>
+          <Text
+            style={styles.link}
+            onPress={() => Linking.openURL(policyDetail.rfcSiteUrla1)}
+          >
             {policyDetail.rfcSiteUrla1}
           </Text>
         </View>
@@ -138,7 +156,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   subtitle: {
@@ -150,12 +168,12 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 8,
   },
   link: {
-    color: 'blue',
-    textDecorationLine: 'underline',
+    color: "blue",
+    textDecorationLine: "underline",
   },
 });
 

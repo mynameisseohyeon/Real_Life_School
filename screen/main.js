@@ -25,6 +25,11 @@ import Carousel from "../components/Carousel";
 // npm install react-native-pager-view
 // expo install react-native-screens react-native-safe-area-context
 // npm install is-arrayish
+// npm install react-native-xml2js
+// npm install react-native-dotenv
+// npm install expo-modules-core
+// npm install expo-asset
+// npm install supports-color
 
 export default function Main({ navigation }) {
   const handleHousingListPress = () => {
@@ -46,19 +51,19 @@ export default function Main({ navigation }) {
   const menuItems = [
     {
       id: 1,
-      title: "주택계약",
+      title: "주택 용어 사전",
       icon: "home-outline",
       onPress: handleHousingListPress,
     },
     {
       id: 2,
-      title: "금융",
+      title: "금융 용어 사전",
       icon: "cash-outline",
       onPress: handleFinanceListPress,
     },
     {
       id: 3,
-      title: "노동법",
+      title: "청년 정책",
       icon: "briefcase-outline",
       onPress: handleLaborListPress,
     },

@@ -1,30 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Modal, Button, TextInput } from 'react-native';
-import { XMLParser } from 'fast-xml-parser';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  ActivityIndicator,
+  Modal,
+  Button,
+  TextInput,
+} from "react-native";
+import { XMLParser } from "fast-xml-parser";
+// import { OPEN_API_VLAK } from "@env";
 
 const PolicyListPage = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pageIndex, setPageIndex] = useState(1);
-  const [selectedRegion, setSelectedRegion] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState("");
   const [regionModalVisible, setRegionModalVisible] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
-  const openApiVlak = '6575be77c522532b6165f0ec'; // 인증키, 나중에 env로
+  const openApiVlak = "6575be77c522532b6165f0ec"; // 인증키, 나중에 env로
   const display = 10; // 페이지당 출력 건수
 
   const regions = [
-    { label: '서울', value: '003002001' },
-    { label: '부산', value: '003002002' },
-    { label: '대구', value: '003002003' },
-    { label: '모든 지역', value: '' },  
+    { label: "서울", value: "003002001" },
+    { label: "부산", value: "003002002" },
+    { label: "대구", value: "003002003" },
+    { label: "모든 지역", value: "" },
   ];
 
   useEffect(() => {
     const fetchPolicies = async () => {
       try {
-        const response = await fetch(`https://www.youthcenter.go.kr/opi/youthPlcyList.do?openApiVlak=${openApiVlak}&display=${display}&pageIndex=${pageIndex}&srchPolyBizSecd=${selectedRegion}`);
+        const response = await fetch(
+          `https://www.youthcenter.go.kr/opi/youthPlcyList.do?openApiVlak=${openApiVlak}&display=${display}&pageIndex=${pageIndex}&srchPolyBizSecd=${selectedRegion}`
+        );
         const xmlString = await response.text();
         const parser = new XMLParser();
         const result = parser.parse(xmlString);
@@ -44,12 +57,14 @@ const PolicyListPage = ({ navigation }) => {
 
   useEffect(() => {
     // 검색 기능: 검색어에 맞는 정책 필터링
-    if (searchQuery === '') {
+    if (searchQuery === "") {
       setFilteredData(data);
     } else {
-      setFilteredData(data.filter(item =>
-        item.polyBizSjnm.toLowerCase().includes(searchQuery.toLowerCase())
-      ));
+      setFilteredData(
+        data.filter((item) =>
+          item.polyBizSjnm.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
     }
   }, [searchQuery, data]);
 
@@ -63,7 +78,7 @@ const PolicyListPage = ({ navigation }) => {
   }
 
   const handlePress = (policyId) => {
-    navigation.navigate('PolicyDetailPage', { policyId });
+    navigation.navigate("PolicyDetailPage", { policyId });
   };
 
   const handlePageChange = (direction) => {
@@ -114,7 +129,10 @@ const PolicyListPage = ({ navigation }) => {
 
     return (
       <View style={styles.pagination}>
-        <TouchableOpacity onPress={() => handlePageChange(-1)} style={styles.pageButton}>
+        <TouchableOpacity
+          onPress={() => handlePageChange(-1)}
+          style={styles.pageButton}
+        >
           <Text style={styles.pageText}>Previous</Text>
         </TouchableOpacity>
 
@@ -125,7 +143,7 @@ const PolicyListPage = ({ navigation }) => {
               onPress={() => setPageIndex(pageNum)}
               style={[
                 styles.pageNumberButton,
-                pageNum === pageIndex && styles.activePageNumberButton
+                pageNum === pageIndex && styles.activePageNumberButton,
               ]}
             >
               <Text style={styles.pageNumberText}>{pageNum}</Text>
@@ -133,7 +151,10 @@ const PolicyListPage = ({ navigation }) => {
           ))}
         </View>
 
-        <TouchableOpacity onPress={() => handlePageChange(1)} style={styles.pageButton}>
+        <TouchableOpacity
+          onPress={() => handlePageChange(1)}
+          style={styles.pageButton}
+        >
           <Text style={styles.pageText}>Next</Text>
         </TouchableOpacity>
       </View>
@@ -158,7 +179,10 @@ const PolicyListPage = ({ navigation }) => {
         data={filteredData}
         keyExtractor={(item) => item.bizId}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handlePress(item.bizId)} style={styles.card}>
+          <TouchableOpacity
+            onPress={() => handlePress(item.bizId)}
+            style={styles.card}
+          >
             <Text style={styles.title}>{item.polyBizSjnm}</Text>
             <Text style={styles.description}>{item.polyItcnCn}</Text>
           </TouchableOpacity>
@@ -178,97 +202,97 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f5f5f5",
   },
   searchInput: {
     height: 45,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     borderWidth: 1,
     borderRadius: 25,
     paddingHorizontal: 15,
     marginBottom: 16,
-    width: '100%',
-    backgroundColor: '#fff',
+    width: "100%",
+    backgroundColor: "#fff",
   },
   card: {
     marginBottom: 16,
     padding: 15,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 8,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    width: '100%',
+    width: "100%",
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 8,
-    color: '#333',
+    color: "#333",
   },
   description: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
   },
   pagination: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
     marginTop: 16,
-    alignItems: 'center',
+    alignItems: "center",
   },
   pageButton: {
     padding: 10,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
     borderRadius: 5,
   },
   pageText: {
     fontSize: 16,
-    color: '#007BFF',
+    color: "#007BFF",
   },
   pageNumbers: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   pageNumberButton: {
     padding: 10,
     marginHorizontal: 5,
     borderRadius: 5,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
   },
   activePageNumberButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: "#007BFF",
   },
   pageNumberText: {
     fontSize: 16,
-    color: '#333',
+    color: "#333",
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 20,
     borderRadius: 10,
-    width: '80%',
-    maxHeight: '60%',
+    width: "80%",
+    maxHeight: "60%",
   },
   modalTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   modalItem: {
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderBottomColor: "#ddd",
   },
   modalItemText: {
     fontSize: 16,
